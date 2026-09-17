@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Raunak's Travels — Premium travel experiences across India.">
+    <meta name="theme-color" content="#050816">
+    <title>Raunak's Travels — Explore Beyond Boundaries</title>
+    <!-- Search Engine Optimization (SEO) -->
+    <meta name="title" content="Raunak's Travels — Premium Travel Experiences Across India">
+    <meta name="description" content="Explore handpicked tour packages, interactive trip cost estimation, and custom travel itineraries across India with Raunak's Travels.">
+    <meta name="keywords" content="Raunak Travels, India Tour Packages, Goa Beach Trips, Kashmir Paradise Tour, Ladakh Bike Expedition, Budget Travel Estimator">
+    <meta name="author" content="Raunak Kumar Jha">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook / WhatsApp Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://raunakjha.github.io/raunaks-travels/">
+    <meta property="og:title" content="Raunak's Travels — Explore Beyond Boundaries">
+    <meta property="og:description" content="Curated journeys, extraordinary destinations, and seamless travel experiences designed around your aspirations.">
+    <meta property="og:image" content="https://picsum.photos/id/1015/1200/630">
+
+    <!-- Twitter / X Card Preview -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://raunakjha.github.io/raunaks-travels/">
+    <meta property="twitter:title" content="Raunak's Travels — Explore Beyond Boundaries">
+    <meta property="twitter:description" content="Curated journeys, extraordinary destinations, and seamless travel experiences designed around your aspirations.">
+    <meta property="twitter:image" content="https://picsum.photos/id/1015/1200/630">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600..800;1,600..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-brand">RAUNAK'S <span>TRAVELS</span></div>
+            <div class="loader-bar"><span></span></div>
+            <small style="color: #94a3b8;">Preparing your journey...</small>
+        </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="brand">
+                RAUNAK'S
+                <small>TRAVELS</small>
+            </a>
+
+            <nav id="navMenu" class="nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="#destinations">Destinations</a>
+                <a href="#packages">Packages</a>
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <!-- Wishlist Trigger Button -->
+<button type="button" id="wishlistToggleBtn" class="btn btn-outline" style="min-height: 40px; position: relative; padding: 0 12px; display: flex; align-items: center; gap: 6px;" aria-label="View Saved Packages">
+    <i class="fa-solid fa-heart" style="color: #ef4444;"></i>
+    <span id="wishlistCountBadge" style="background: var(--primary); color: #000; font-size: 0.7rem; font-weight: 700; border-radius: 999px; padding: 1px 6px;">0</span>
+</button>
+
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <a href="#packages" class="btn btn-primary" style="padding: 0 16px; min-height: 40px; font-size: 0.82rem;">
+                    Explore Trips
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+                <button type="button" id="themeToggleBtn" class="btn btn-outline" style="min-height: 40px; width: 40px; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%;" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-sun" style="color: #fbbf24;"></i>
+                </button>
+                <select id="currencySelector" class="form-control" style="padding: 4px 8px; font-size: 0.78rem; width: auto; background: rgba(255,255,255,0.05); cursor: pointer;">
+    <option value="INR" selected>🇮🇳 INR (₹)</option>
+    <option value="USD">🇺🇸 USD ($)</option>
+    <option value="EUR">🇪🇺 EUR (€)</option>
+    <option value="AED">🇦🇪 AED (د.إ)</option>
+</select>
+
+                <button class="menu-toggle" id="menuBtn" aria-label="Open menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-badge">DISCOVER INDIA DIFFERENTLY</span>
+                <h1>Your next <em>great story</em> starts here.</h1>
+                <p class="hero-description">
+                    Curated journeys, extraordinary destinations, and seamless travel experiences designed around your aspirations.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#packages" class="btn btn-primary">Explore Packages <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#destinations" class="btn btn-outline">Discover Destinations</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="destinations">
+        <div class="section-header reveal">
+            <span class="section-tag">EXPLORE</span>
+            <h2 class="section-title">Places that <span class="text-gradient">stay with you.</span></h2>
+            <p class="section-description">From tropical beaches to Himalayan peaks, discover destinations selected for unforgettable memories.</p>
+        </div>
+
+        <div class="container">
+            <div class="map-wrapper reveal" style="margin-bottom: 35px;">
+                <div id="destinationsMap" style="height: 380px; width: 100%; border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; z-index: 10;"></div>
+            </div>
+            <div class="destination-grid" id="destinationGrid"></div>
+        </div>
+    </section>
+
+    <section class="section" id="packages">
+        <div class="section-header reveal">
+            <span class="section-tag">CURATED JOURNEYS</span>
+            <h2 class="section-title">Find your <span class="text-gradient">perfect escape.</span></h2>
+            <p class="section-description">Choose from carefully designed travel packages crafted for every style of explorer.</p>
+        </div>
+
+        <div class="container">
+            <div class="search-panel reveal" style="padding: 20px;">
+                <div style="display: grid; grid-template-columns: 2fr 1.2fr; gap: 20px; align-items: center;">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">
+                            <i class="fa-solid fa-magnifying-glass" style="color: var(--primary);"></i> SEARCH PACKAGES
+                        </label>
+                        <input type="search" id="packageSearch" class="search-input" placeholder="Search by destination, state, or package name...">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                            <label style="font-size: 0.75rem; color: var(--text-muted);">
+                                <i class="fa-solid fa-indian-rupee-sign" style="color: var(--primary);"></i> MAX BUDGET
+                            </label>
+                            <span id="priceRangeValue" style="color: var(--primary); font-weight: 700; font-size: 0.85rem;">₹30,000</span>
+                        </div>
+                        <input type="range" id="priceRange" min="5000" max="30000" step="1000" value="30000" style="width: 100%; accent-color: var(--primary); cursor: pointer;">
+                    </div>
+                </div>
+                <div class="filters" id="filters" style="margin-top: 18px; justify-content: flex-start;"></div>
+            </div>
+            <div class="package-grid" id="packageGrid"></div>
+        </div>
+    </section>
+
+    <section class="section" id="services">
+        <div class="section-header reveal">
+            <span class="section-tag">WHAT WE DO</span>
+            <h2 class="section-title">Travel planning, <span class="text-gradient">simplified.</span></h2>
+        </div>
+
+        <div class="container">
+            <div class="destination-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+                <article class="testimonial-card reveal" style="padding: 24px;">
+                    <div style="font-size: 1.8rem; color: var(--primary); margin-bottom: 12px;"><i class="fa-solid fa-plane-departure"></i></div>
+                    <h3 style="margin-bottom: 8px; font-size: 1.05rem;">Flight Bookings</h3>
+                    <p style="color: var(--text-muted); font-size: 0.82rem;">Convenient flight options tailored to your itinerary.</p>
+                </article>
+
+                <article class="testimonial-card reveal" style="padding: 24px;">
+                    <div style="font-size: 1.8rem; color: var(--primary); margin-bottom: 12px;"><i class="fa-solid fa-hotel"></i></div>
+                    <h3 style="margin-bottom: 8px; font-size: 1.05rem;">Hotel Stays</h3>
+                    <p style="color: var(--text-muted); font-size: 0.82rem;">Comfortable, handpicked accommodations at best prices.</p>
+                </article>
+
+                <article class="testimonial-card reveal" style="padding: 24px;">
+                    <div style="font-size: 1.8rem; color: var(--primary); margin-bottom: 12px;"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <h3 style="margin-bottom: 8px; font-size: 1.05rem;">Tour Packages</h3>
+                    <p style="color: var(--text-muted); font-size: 0.82rem;">Expertly planned trips covering iconic hidden gems.</p>
+                </article>
+
+                <article class="testimonial-card reveal" style="padding: 24px;">
+                    <div style="font-size: 1.8rem; color: var(--primary); margin-bottom: 12px;"><i class="fa-solid fa-headset"></i></div>
+                    <h3 style="margin-bottom: 8px; font-size: 1.05rem;">24/7 Support</h3>
+                    <p style="color: var(--text-muted); font-size: 0.82rem;">Dedicated assistance throughout your entire trip.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="calculator">
+        <div class="section-header reveal">
+            <span class="section-tag">BUDGET ESTIMATOR</span>
+            <h2 class="section-title">Custom Trip <span class="text-gradient">Cost Calculator.</span></h2>
+            <p class="section-description">Customize your trip options below to get an instant real-time price estimate and suggested itinerary.</p>
+        </div>
+
+        <div class="container">
+            <div class="calc-wrapper reveal">
+                <div class="calc-controls">
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-location-dot" style="color: var(--primary);"></i> Select Destination</label>
+                        <select id="calcDestination" class="form-control">
+                            <option value="9999" data-days="4">Goa (Beach Retreat)</option>
+                            <option value="15499" data-days="6">Kashmir (Paradise Valley)</option>
+                            <option value="18999" data-days="7" selected>Ladakh (High-Altitude Expedition)</option>
+                            <option value="12999" data-days="5">Meghalaya (Waterfalls & Hills)</option>
+                        </select>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-users" style="color: var(--primary);"></i> Travelers</label>
+                            <input type="number" id="calcTravelers" class="form-control" min="1" max="20" value="2">
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-hotel" style="color: var(--primary);"></i> Hotel Category</label>
+                            <select id="calcHotel" class="form-control">
+                                <option value="1">3-Star Comfort (Standard)</option>
+                                <option value="1.35">4-Star Deluxe (+35%)</option>
+                                <option value="1.7">5-Star Luxury (+70%)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-layer-group" style="color: var(--primary);"></i> Optional Add-ons</label>
+                        <div class="addons-grid">
+                            <label class="addon-checkbox">
+                                <input type="checkbox" id="addonVehicle" value="2500">
+                                <span><i class="fa-solid fa-car"></i> Bike/Car Rental (₹2,500)</span>
+                            </label>
+                            <label class="addon-checkbox">
+                                <input type="checkbox" id="addonGuide" value="1500">
+                                <span><i class="fa-solid fa-user-shield"></i> Personal Tour Guide (₹1,500)</span>
+                            </label>
+                            <label class="addon-checkbox">
+                                <input type="checkbox" id="addonMeals" value="3000" checked>
+                                <span><i class="fa-solid fa-utensils"></i> All Meals Included (₹3,000)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calc-summary">
+                    <span class="section-tag" style="font-size: 0.65rem;">ESTIMATED TOTAL</span>
+                    <div class="calc-total-price" id="calcTotalPrice">₹0</div>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px;" id="calcPerPerson">₹0 per person</p>
+
+                    <div class="calc-breakdown">
+                        <div class="breakdown-item">
+                            <span>Base Package (x<span id="summaryTravelers">2</span>)</span>
+                            <strong id="summaryBase">₹0</strong>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Hotel Tier Surge</span>
+                            <strong id="summaryHotelTier">₹0</strong>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Selected Add-ons</span>
+                            <strong id="summaryAddons">₹0</strong>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" id="btnBookCalculated" style="width: 100%; margin-top: 25px;">
+                        Proceed to Book This Estimate
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="container contact-grid" style="align-items: center;">
+            <div class="reveal">
+                <img src="https://picsum.photos/id/1016/1200/800" alt="Indian destination" style="border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow);">
+            </div>
+
+            <div class="reveal">
+                <span class="section-tag">ABOUT RAUNAK'S TRAVELS</span>
+                <h2 class="section-title">We don't just plan trips. <span class="text-gradient">We create memories.</span></h2>
+                <p style="color: var(--text-soft); margin-bottom: 15px;">
+                    Raunak's Travels is built around one simple idea — travel should feel seamless and exciting from the moment you plan until you return home.
+                </p>
+                <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 0.88rem;">
+                    We combine handpicked destinations, reliable arrangements, and custom options to help you experience India's finest locations effortlessly.
+                </p>
+                <a href="#contact" class="btn btn-primary">Talk to Us <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header reveal">
+            <span class="section-tag">TRAVELLER STORIES</span>
+            <h2 class="section-title">Memories worth <span class="text-gradient">sharing.</span></h2>
+        </div>
+
+        <div class="container">
+            <div class="testimonial-grid" id="testimonialGrid"></div>
+
+            <div class="reveal" style="margin-top: 45px; max-width: 650px; margin-inline: auto;">
+                <div class="contact-form" style="padding: 25px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border);">
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 6px; text-align: center;">Share Your Experience</h3>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); text-align: center; margin-bottom: 20px;">
+                        Had an awesome journey with Raunak's Travels? Leave us a review!
+                    </p>
+
+                    <form id="reviewForm">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div class="form-group">
+                                <label>Your Name</label>
+                                <input type="text" name="name" class="form-control" placeholder="Enter full name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Rating</label>
+                                <select name="rating" id="reviewRatingSelect" class="form-control" required>
+                                    <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
+                                    <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
+                                    <option value="3">⭐⭐⭐ (3 Stars)</option>
+                                    <option value="2">⭐⭐ (2 Stars)</option>
+                                    <option value="1">⭐ (1 Star)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Your Review / Experience</label>
+                            <textarea name="quote" class="form-control" rows="3" placeholder="Tell us how was your trip..." required></textarea>
+                        </div>
+
+                        <button type="submit" id="btnSubmitReview" class="btn btn-primary" style="width: 100%;">
+                            Submit Review <i class="fa-solid fa-star"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section contact" id="contact">
+        <div class="container contact-grid">
+            <div class="contact-info reveal">
+                <span class="section-tag">GET IN TOUCH</span>
+                <h2 style="font-size: 1.8rem; margin-top: 5px; margin-bottom: 12px;">Let's plan something <span class="text-gradient">extraordinary.</span></h2>
+                <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 0.88rem;">
+                    Have a destination in mind? Drop us a message and we'll help you organize your ideal trip.
+                </p>
+
+                <div style="display: flex; flex-direction: column; gap: 18px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <i class="fa-solid fa-envelope" style="color: var(--primary);"></i>
+                        <div>
+                            <small style="color: var(--text-muted); display: block; font-size: 0.72rem;">Email</small>
+                            <strong style="font-size: 0.88rem;">raunakjha.dav@gmail.com</strong>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <i class="fa-solid fa-location-dot" style="color: var(--primary);"></i>
+                        <div>
+                            <small style="color: var(--text-muted); display: block; font-size: 0.72rem;">Location</small>
+                            <strong style="font-size: 0.88rem;">Jharkhand, India</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form reveal" id="contactForm">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input name="name" type="text" class="form-control" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input name="email" type="email" class="form-control" placeholder="you@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input name="subject" type="text" class="form-control" placeholder="How can we help?">
+                </div>
+
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea name="message" class="form-control" rows="4" placeholder="Tell us about your travel plans..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    Send Message <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer style="padding: 30px 0; border-top: 1px solid var(--border); background: #030712;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 0.8rem; color: var(--text-muted);">
+            <div>© Raunak's Travels. All rights reserved.</div>
+            <div>Crafted for explorers.</div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <button class="modal-close" type="button" aria-label="Close modal">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Wishlist Drawer Modal -->
+<div class="modal" id="wishlistModal">
+    <div class="modal-content" style="max-width: 500px;">
+        <button class="modal-close" type="button" id="closeWishlistBtn">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 15px;">
+            <i class="fa-solid fa-heart" style="color: #ef4444;"></i> Saved Travel Packages
+        </h3>
+
+        <div id="wishlistContainer" style="display: flex; flex-direction: column; gap: 12px; max-height: 350px; overflow-y: auto;">
+            <p style="text-align: center; color: var(--text-muted); padding: 20px 0;">No saved packages yet.</p>
+        </div>
+    </div>
+</div>
+
+            <div style="margin-bottom: 20px;">
+                <span class="section-tag">BOOK YOUR TRIP</span>
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-top: 4px;">Let's Make It Happen</h2>
+                <p id="selectedPackage" style="color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-top: 4px;"></p>
+            </div>
+
+            <form id="bookingForm">
+                <input type="hidden" name="package_id" id="bookingPackageId">
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="full_name" class="form-control" placeholder="Enter your full name" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" name="phone" class="form-control" placeholder="Contact number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="Email address" required>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="form-group">
+                        <label>Travel Date</label>
+                        <input type="date" name="travel_date" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Travelers</label>
+                        <input type="number" name="travelers" class="form-control" min="1" max="50" value="1" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Additional Notes</label>
+                    <textarea name="message" class="form-control" rows="3" placeholder="Any special requests?"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                    Proceed to Payment <i class="fa-solid fa-credit-card"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Gateway Modal -->
+<!-- Payment Gateway Modal -->
+<div class="modal" id="paymentModal" data-bs-backdrop="static">
+    <div class="modal-content" style="max-width: 440px; text-align: center; position: relative;">
+        <!-- Cancel / Close Button (Only active when permitted) -->
+        <button class="modal-close" type="button" aria-label="Cancel payment" id="paymentCloseBtn" style="display: none;">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div style="margin-bottom: 15px;">
+            <span class="section-tag" style="font-size: 0.65rem;">SCAN & PAY</span>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-top: 4px;">Complete Payment</h2>
+            <p id="payModalAmount" style="color: var(--primary); font-weight: 700; font-size: 1.4rem; margin-top: 6px;">₹0</p>
+        </div>
+
+        <!-- Payment Tabs -->
+        <div style="display: flex; gap: 8px; margin-bottom: 20px; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 10px;">
+            <button type="button" class="btn filter-btn active" id="tabUpi" style="flex: 1; min-height: 34px; font-size: 0.78rem;">
+                <i class="fa-solid fa-qrcode"></i> Dynamic UPI QR
+            </button>
+            <button type="button" class="btn filter-btn" id="tabCard" style="flex: 1; min-height: 34px; font-size: 0.78rem;">
+                <i class="fa-solid fa-credit-card"></i> Card / NetBanking
+            </button>
+        </div>
+
+        <!-- UPI Tab Content (Your Custom QR Code) -->
+        <div id="paymentUpiView">
+            <div style="background: #fff; padding: 12px; border-radius: 16px; display: inline-block; margin-bottom: 12px; border: 2px solid var(--primary); box-shadow: 0 10px 25px rgba(0, 212, 255, 0.2);">
+                <!-- Replace 'qr.png' with your actual UPI QR Image Path -->
+                <img id="customUpiQr" src="qr.png" alt="Scan UPI QR Code" style="width: 180px; height: 180px; object-fit: contain; border-radius: 8px;" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=raunak@upi&pn=Raunaks%20Travels'">
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">
+                Scan with <strong>PhonePe, Google Pay, Paytm, or BHIM</strong>
+            </p>
+            <div style="font-size: 0.75rem; color: var(--primary); font-weight: 600; margin-bottom: 15px; background: rgba(0,212,255,0.1); padding: 6px 12px; border-radius: 999px; display: inline-block;">
+                <i class="fa-solid fa-shield-halved"></i> Verified Merchant: Raunak's Travels
+            </div>
+        </div>
+
+        <!-- Card Tab Content -->
+        <div id="paymentCardView" style="display: none; text-align: left;">
+            <div class="form-group">
+                <label>Card Number</label>
+                <input type="text" id="payCardNumber" class="form-control" placeholder="4000 1234 5678 9010" maxlength="19">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div class="form-group">
+                    <label>Expiry</label>
+                    <input type="text" id="payCardExpiry" class="form-control" placeholder="MM/YY" maxlength="5">
+                </div>
+                <div class="form-group">
+                    <label>CVV</label>
+                    <input type="password" id="payCardCvv" class="form-control" placeholder="•••" maxlength="4">
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Controls -->
+        <button type="button" id="btnPayConfirm" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+            <i class="fa-solid fa-lock"></i> Verify Payment & Confirm
+        </button>
+
+        <button type="button" id="btnCancelPayment" style="width: 100%; margin-top: 12px; font-size: 0.78rem; color: #ef4444; opacity: 0.8; text-decoration: underline; background: none; border: none; cursor: pointer;">
+            Cancel Booking Session
+        </button>
+
+        <!-- Post-Payment Download Section (Initially Hidden) -->
+<div id="paymentSuccessView" style="display: none; text-align: center; margin-top: 15px;">
+    <div style="font-size: 3rem; color: #34d399; margin-bottom: 10px;">
+        <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <h3 style="font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #fff; margin-bottom: 6px;">Booking & Payment Confirmed!</h3>
+    <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px;">Your travel ticket and payment invoice are ready.</p>
+
+    <button type="button" id="btnDownloadInvoice" class="btn btn-primary" style="width: 100%;">
+        <i class="fa-solid fa-file-arrow-down"></i> Download PDF Receipt
+    </button>
+</div>
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <script src="superbase.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
